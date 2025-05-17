@@ -1,27 +1,64 @@
-from linked_list import LinkedList
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
-if __name__ == "__main__":
-    """
-    Use this file to create a LinkedList instance and perform operations 
-    like insertion, recursion-based sum, search, and reverse.
-    """
+class LinkedList:
+    def __init__(self):
+        self.head = None
 
-    # TODO: 1) Create a LinkedList instance
-    
+    def insert_at_front(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
 
-    # TODO: 2) Insert some sample data using insert_at_front or insert_at_end
-    
-    # TODO: 3) Display the list to verify insertion
-    
+    def sum_recursive(self, node):
+        if node is None:
+            return 0
+        return node.data + self.sum_recursive(node.next)
 
-    # TODO: 4) Call recursive_sum and print the result
-    
+    def reverse_recursive(self, prev, current):
+        if current is None:
+            self.head = prev
+            return
+        next_node = current.next
+        current.next = prev
+        self.reverse_recursive(current, next_node)
 
-    # TODO: 5) Call recursive_search with a target and print result
-    
+    def search_recursive(self, node, target):
+        if node is None:
+            return False
+        if node.data == target:
+            return True
+        return self.search_recursive(node.next, target)
 
-    # TODO: 6) Call recursive_reverse, then display the reversed list
-    
+    def print_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
 
+# Initialize the linked list
+ll = LinkedList()
+ids = [101, 202, 303, 404, 505]
+for id in ids:
+    ll.insert_at_front(id)
 
-# 
+# Display the initial list
+print("Original Linked List:")
+ll.print_list()
+
+# Sum all IDs using recursion
+total_sum = ll.sum_recursive(ll.head)
+print(f"Sum of all IDs: {total_sum}")
+
+# Reverse the linked list using recursion
+ll.reverse_recursive(None, ll.head)
+print("Reversed Linked List:")
+ll.print_list()
+
+# Search for an ID using recursion
+search_id = 303
+found = ll.search_recursive(ll.head, search_id)
+print(f"Is ID {search_id} present? {'Yes' if found else 'No'}")
