@@ -27,6 +27,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertTrue(self.ll.recursive_search(10))
         self.assertFalse(self.ll.recursive_search(999))
 
+
     def test_recursive_reverse(self):
         # Insert 3 items
         self.ll.insert_at_end(1)
